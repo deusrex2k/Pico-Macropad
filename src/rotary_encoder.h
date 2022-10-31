@@ -24,8 +24,8 @@ class RotaryEncoder
 	Bounce bounce_a = Bounce(); // Bounce for all inputs (makes the debouncing a lot easier)
 	Bounce bounce_b = Bounce();
 	Bounce bounce_sw = Bounce();
-	u_int8_t rot_event;
-	u_int8_t sw_event;
+	uint8_t rot_event;
+	uint8_t sw_event;
 	// led
 	RGB pins;
 	RGB color;
@@ -148,9 +148,9 @@ void RotaryEncoder::update()
 		
 		enc_brightness /= 100;
 
-		analogWrite(pins.r, 255 - (actual_color.r * enc_brightness));
-		analogWrite(pins.g, 255 - (actual_color.g * enc_brightness));
-		analogWrite(pins.b, 255 - (actual_color.b * enc_brightness));
+		//analogWrite(pins.r, 255 - (actual_color.r * enc_brightness));
+		//analogWrite(pins.g, 255 - (actual_color.g * enc_brightness));
+		//analogWrite(pins.b, 255 - (actual_color.b * enc_brightness));
 	}
 }
 

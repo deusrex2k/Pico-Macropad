@@ -401,8 +401,8 @@ void Menu::write_sel_to_file()
 	{
 		// char t[7];
 		// sprintf(t,"%d",i);
-		sel.print(i);
-		sel.print('\n');
+		//sel.print(i);
+		//sel.print('\n');
 	}
 	sel.close();
 }

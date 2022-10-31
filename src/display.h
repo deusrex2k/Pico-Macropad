@@ -18,11 +18,13 @@
 #define SCREEN_HEIGHT 64	// OLED display height, in pixels
 #define OLED_RESET 28		// Reset pin # (or -1 if sharing Arduino reset pin)
 #define SCREEN_ADDRESS 0x3D ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+#define cs 5
+#define dc 9
 
 namespace Display
 {
 	//* VARIABLES AND OBJECTS
-	Adafruit_SSD1306 display = Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+	Adafruit_SSD1331 display = Adafruit_SSD1331(&SPI, cs, dc, OLED_RESET); //cs, dc, rst)
 
 	bool change = false;
 	bool on = true;
@@ -56,19 +58,23 @@ namespace Display
 void Display::begin()
 {
 	// start display and test if it works
-	if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS))
-	{
+	//if (!display.begin())
+	//{
 		// Serial.println("[display::begin] DISPLAY NO NO WORKING");
 		// Serial.println(F("SSD1306 allocation failed"));
-		while (true)
-		{
-		} // Don't proceed, loop forever
-	}
+	//	while (true)
+	//	{
+	//	} // Don't proceed, loop forever
+	//}
+	display.begin();
 
 	// Serial.println("[display::begin] display ready to go");
 
-	display.clearDisplay();
-	display.display();
+	//display.clear();
+	display.fillScreen(0);
+
+	//display.show();
+	
 
 	// manage settings for displaying text
 	display.setTextColor(1, 0);
@@ -103,7 +109,7 @@ void Display::update()
 		change = false;
 		last_update = millis();
 
-		display.clearDisplay();
+		display.fillScreen(0);
 
 		if (on)
 		{
@@ -126,7 +132,7 @@ void Display::update()
 				display.print(text[i]);
 			}
 		}
-		display.display();
+		//display.display();
 	}
 }
 

@@ -9,6 +9,8 @@
 #define DEBOUNCE_TIME 5				 // debounce time for the rotary encoder [ms]
 #define STEPS_PER_VOLUME 1			 // steps the volume knob needs to be turned to send a volume command
 #define BRIGHTNESS_STEPS_PER_STEPS 2 // how much does the brightness change per encoder step
+
+
 double raw_brightness = 40;			 // brightness percentage (0%-100%); used to calculate a corrected version
 double brightness;					 // brightness percentage (0%-100%); use this one, because it is corrected
 
@@ -16,19 +18,29 @@ unsigned long last_input = 0; // saves the last time any of the inputs had been 
 
 //* INCLUDES
 // Arduino libraries
+#include <Arduino.h>
 #include <Bounce2.h>
-#include <Keyboard.h>
+//#include <Keyboard.h>
+#include <USB.h>
+#include <USBHIDKeyboard.h>
+USBHIDKeyboard Keyboard;
+
+
 #include <Adafruit_NeoTrellis.h>
 #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
+#include <Adafruit_SSD1331.h>
 // Pico specific library
 #include <LittleFS.h>
+
+//Arduino micro
+//#include "LittleFS_micro.h" 
+
 // local files
 #include "macro.h"
 #include "utils.h"
 #include "display.h"
 #include "rotary_encoder.h"
-#include "brightness_knob.h"
+//#include "brightness_knob.h"
 #include "volume_knob.h"
 #include "neotrellis.h"
 #include "button_state_machine.h"
@@ -45,8 +57,8 @@ void setup()
 	Menu::begin();
 
 	VolumeKnob::begin();
-	BrightnessKnob::begin();
-	BrightnessKnob::correct_brightness();
+//	BrightnessKnob::begin();
+//	BrightnessKnob::correct_brightness();
 	delay(750);
 	NeoTrellis::begin();
 	delay(750);
@@ -64,5 +76,5 @@ void loop()
 	NeoTrellis::update();
 
 	VolumeKnob::update();
-	BrightnessKnob::update();
+//	BrightnessKnob::update();
 }
